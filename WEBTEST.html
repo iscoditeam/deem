@@ -755,9 +755,6 @@ section {
   }
 }
 
-}
-
-/*]]>*/
       /* Platform buttons active state */
     .platform-btn.active {
       background: linear-gradient(135deg, #ef4444, #dc2626);
@@ -784,12 +781,262 @@ section {
       animation: pulse-glow 2s ease-in-out infinite;
     }
     
+    /* Loading Screen Styles */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+    }
+    
+    .loading-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .loading-video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    #loadingVideo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .loading-content {
+      text-align: center;
+      color: white;
+      z-index: 10;
+      animation: fadeInUp 1s ease-out;
+      max-width: 400px;
+      padding: 2rem;
+    }
+    
+    .loading-logo {
+      margin-bottom: 2rem;
+      animation: logoGlow 2s ease-in-out infinite;
+    }
+    
+    .loading-logo-img {
+      height: 80px;
+      width: auto;
+      filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+      transition: transform 0.3s ease;
+    }
+    
+    .loading-logo:hover .loading-logo-img {
+      transform: scale(1.05);
+    }
+    
+    .loading-text h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: textShimmer 3s ease-in-out infinite;
+    }
+    
+    .loading-text p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+      animation: textPulse 2s ease-in-out infinite;
+    }
+    
+    .loading-progress {
+      width: 300px;
+      margin: 0 auto;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    
+    .progress-bar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      animation: progressShimmer 2s ease-in-out infinite;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
+      background-size: 200% 100%;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+      animation: progressGlow 2s ease-in-out infinite;
+    }
+    
+    .progress-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      opacity: 0.9;
+      text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes logoGlow {
+      0%, 100% {
+        filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+      }
+      50% {
+        filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.6));
+      }
+    }
+    
+    @keyframes textShimmer {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+    
+    @keyframes textPulse {
+      0%, 100% {
+        opacity: 0.8;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes progressShimmer {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+    
+    @keyframes progressGlow {
+      0%, 100% {
+        background-position: 0% 50%;
+        box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+      }
+      50% {
+        background-position: 100% 50%;
+        box-shadow: 0 0 25px rgba(251, 191, 36, 0.8);
+      }
+    }
+    
+    /* Responsive adjustments for loading screen */
+    @media (max-width: 768px) {
+      .loading-content {
+        padding: 1rem;
+        max-width: 320px;
+      }
+      
+      .loading-text h2 {
+        font-size: 2rem;
+      }
+      
+      .loading-text p {
+        font-size: 1rem;
+      }
+      
+      .loading-logo-img {
+        height: 60px;
+      }
+      
+      .loading-progress {
+        width: 250px;
+      }
+    }
+    
+    /* Hide main content during loading */
+    body.loading #mainNav,
+    body.loading .wrapper,
+    body.loading main {
+      visibility: hidden;
+    }
+
+}
+
+/*]]>*/
+
 
 
   </style>
 </head>
-<body class='main-font bg-main dark:bg-gray-900 min-h-screen rtl isHome isMultiple'>
+<body class='main-font bg-main dark:bg-gray-900 min-h-screen rtl isHome isMultiple loading'>
 <!--<b:attr cond='data:skin.vars.Spinner == &quot;2px&quot;' name='data-overflow' value='false'/> <b:class cond='data:skin.vars.Protect == &quot;2px&quot;' name='protect'/> <b:attr cond='data:skin.vars.Protect == &quot;2px&quot;' name='oncopy' value='return false;'/> <b:attr cond='data:skin.vars.Protect == &quot;2px&quot;' name='oncut' value='return false;'/> <b:class cond='data:skin.vars.ImgAppear == &quot;1px&quot;' name='pltrans-fade'/> <b:class cond='data:skin.vars.ImgAppear == &quot;2px&quot;' name='pltrans-zoomin'/> <b:class cond='data:skin.vars.ImgAppear == &quot;3px&quot;' name='pltrans-zoomout'/> <b:class cond='data:skin.vars.ImgAppear == &quot;4px&quot;' name='pltrans-rotate'/> <b:class cond='data:skin.vars.ImgAppear == &quot;5px&quot;' name='pltrans-blur'/>-->
+
+<!-- Loading Screen -->
+<div id="loadingScreen" class="loading-screen">
+  <div class="loading-video-container">
+    <video id="loadingVideo" autoplay muted playsinline>
+      <source src="document_6028546745275784204.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="loading-overlay">
+      <div class="loading-content">
+        <div class="loading-text">
+          <h2>مرحباً بك في ديم</h2>
+          <p>جاري تحميل الموقع...</p>
+        </div>
+        <div class="loading-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <span class="progress-text" id="progressText">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class='hidden section' id='OptionsBasic'>
 <div class='widget Profile' data-version='2' id='Profile1'><script type='text/javascript'> let AuthorsInfo=new Array(); AuthorsInfo.push({"name":"DEEM","avatar":"","urlAuth":"https://www.blogger.com/profile/16957775596511276299","count":0,"links":{},"ADS":{},"SKILLS":{}})</script></div>
 <div class='widget HTML' data-version='2' id='HTML1'><script type='text/javascript'>/*<![CDATA[*/SocialText=["إيميل","باي بال","تيليجرام","بيهانس","إنستغرام","فليكر","سناب شات","سبوتيفاي","كورا","يوتيوب","جيت هاب","ووردبريس","لينكد إن","بينتريست","دريببل","التغذية","تويتر","تيك توك","إكس","فيسبوك","واتساب","بلوجر","تمبلر","ساوند كلاود","سكايب","ثريدز","ديسكورد","خمسات","مستقل","كفيل","خريطة الموقع","شوبيفاي","جوجل بلاي","ريديت","أمازون","ماسنجر","جوجل درايف","لاين","الموقع الشخصي"];/*]]>*/</script></div></div>
@@ -3488,6 +3735,79 @@ document.getElementById('newsletterForm')?.addEventListener('submit', function(e
       }, 3000);
     }, 500);
   }
+});
+
+// Loading Screen Script
+document.addEventListener('DOMContentLoaded', function() {
+  const loadingScreen = document.getElementById('loadingScreen');
+  const loadingVideo = document.getElementById('loadingVideo');
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+  const body = document.body;
+  
+  let progress = 0;
+  let loadingComplete = false;
+  
+  // Simulate loading progress
+  const progressInterval = setInterval(() => {
+    progress += Math.random() * 15;
+    if (progress > 100) progress = 100;
+    
+    progressFill.style.width = progress + '%';
+    progressText.textContent = Math.round(progress) + '%';
+    
+    if (progress >= 100) {
+      clearInterval(progressInterval);
+      loadingComplete = true;
+      checkIfReadyToHide();
+    }
+  }, 200);
+  
+  // Check when video ends or page is fully loaded
+  function checkIfReadyToHide() {
+    if (loadingComplete && (loadingVideo.ended || loadingVideo.currentTime > 3)) {
+      hideLoadingScreen();
+    }
+  }
+  
+  // Hide loading screen with smooth transition
+  function hideLoadingScreen() {
+    setTimeout(() => {
+      loadingScreen.classList.add('fade-out');
+      body.classList.remove('loading');
+      
+      setTimeout(() => {
+        loadingScreen.style.display = 'none';
+      }, 800);
+    }, 500);
+  }
+  
+  // Video event listeners
+  loadingVideo.addEventListener('ended', checkIfReadyToHide);
+  loadingVideo.addEventListener('timeupdate', () => {
+    if (loadingVideo.currentTime > 3 && loadingComplete) {
+      checkIfReadyToHide();
+    }
+  });
+  
+  // Fallback: Hide loading screen after maximum 8 seconds
+  setTimeout(() => {
+    if (!loadingScreen.classList.contains('fade-out')) {
+      hideLoadingScreen();
+    }
+  }, 8000);
+  
+  // Handle video loading errors
+  loadingVideo.addEventListener('error', () => {
+    console.log('Video loading error, hiding loading screen');
+    hideLoadingScreen();
+  });
+  
+  // Ensure video plays
+  loadingVideo.play().catch(e => {
+    console.log('Video autoplay failed:', e);
+    // Still show loading screen even if video fails
+  });
 });
 </script>
 
